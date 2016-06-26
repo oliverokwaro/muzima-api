@@ -7,12 +7,96 @@
  */
 
 package com.muzima.api.model;
+import java.sql.*;
+import javax.swing.*;
+import java.awt.*;
+import java.util.List;
+import java.util.Arrays;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import com.muzima.search.api.util.StringUtil;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+public class Obs extends JPanel{
+    private static JLabel msg;
+    private String URL,PW,User;
+    private Connection con;
+    private Statement smt;
+    private DriverManager drivermanager;
+    private static  String tableName;
+    private static  List<String> colName =null;
+   Func func=new Func();
+   
+   public Obs(){
+      
+    URL="";
+    PW="";
+    User="user";
+       
+       
+        try {
+            func.   DBConnect();
+        } catch (SQLException ex) {
+            Logger.getLogger(Obs.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        msg = new JLabel();
+        msg.setForeground(Color.CYAN);
+        add(msg);
+        
+   }//END OF OBS CONSTRUCTOR
+    public static void main(String[] args) {
+       // TODO code application logic here
+       Obs obs = new Obs();
+       
+      
+       
+   }
+   private class Func {
+       
+   //METHOD TO MONITORS OBS INFO
+       public void  msginfo_() throws SQLException{
+          String qry="select * from table Obs";
+           try {
+               con=DriverManager.getConnection(URL,User,PW);
+           } catch (SQLException ex) {
+               Logger.getLogger(Obs.class.getName()).log(Level.SEVERE, null, ex);
+           }
+           ResultSet rs=(ResultSet) con.prepareStatement(qry);
+       
+           ResultSetMetaData rmd=rs.getMetaData();
+          
+          int colCnt=rmd.getColumnCount();
+          for(int i=0;i<colCnt;colCnt++){
+          colName = Arrays.asList(rmd.getColumnName(i)); //GET COLUMN NAMES          
+               
+           Array  data=rs.getArray(rmd.getColumnName(i));//GET COLUMN VALUE AT THE CURRENT ROW
+           
+            
+           
+   }}
+       
+       
+       
+       
+   //CONNNECT TO DATA BASE
+   private void DBConnect() throws SQLException{
+       try {
+           Class.forName("com.mysql.jdbc.Driver");
+       } catch (ClassNotFoundException ex) {
+           JOptionPane.showMessageDialog(null,"SQL ERROR","CANNOT FIND SERVER",2);
+       }
+      
+       con=DriverManager.getConnection(URL,User,PW);
+       smt=con.createStatement();
+       
+   }
+   
+}
+   
+}
 public class Observation extends OpenmrsSearchable {
 
     private Person person;
