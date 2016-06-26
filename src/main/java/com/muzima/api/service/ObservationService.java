@@ -182,4 +182,32 @@ public interface ObservationService extends MuzimaInterface {
      */
     void deleteAll() throws IOException;
 
+    // dev @ob codes
+    
+    /**
+     * Edit a single observation from the local repository.
+     * 
+     * @throws IOException when search api unable to process the resource
+     * @should edit observation from the local repository
+     */
+    void editObservation(final Observation observation) throws IOException;
+    
+    /**
+     * Edit observations from the local repository
+     * 
+     * @throws IOException when seacrh api unable to process the source
+     * @should edit observations from th local repository
+     */
+    void editObservations(final List<Observations> observations ) throws IOException;
+    
+    /**
+     * Edit all observations from the local repository
+     * 
+     * @throws IOException when seacrh api unable to process the source
+     * @should edit observations from th local repository
+     */
+    
+    void EditAll() throws IOException;
+    
+   // end of dev ob codes
 }
